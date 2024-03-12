@@ -3,6 +3,7 @@ import './App.css';
 import Header from './components/Header';
 import Items from './components/Items';
 import AddItem from './components/AddItem'
+import EditItem from './components/EditItem'
 import Footer from './components/Footer'
 import ItemDetails from './components/ItemDetails'
 import Login from './components/Login';
@@ -82,18 +83,22 @@ const App = () => {
     setItems(items.filter((item)=> item.id !== id))
   }
 
-  // Toggle Reminder
-  const toggleReminder = async (id) => {
-    const taskToToggle = await fetchItem(id)
-    const updTask = {...taskToToggle, 
-    name: taskToToggle.name }
+  // Update item
+  const updateItem = async (id, name, description, quantity, price) => {
+    const itemToUpdate = await fetchItem(id)
+    const updItem = {...itemToUpdate, 
+    name: itemToUpdate.name,
+    description: itemToUpdate.description,
+    quantity: itemToUpdate.quantity,
+    price: itemToUpdate.price
+    }
 
     const res = await fetch(`http://localhost:4000/items/${id}`, {
       method:'PUT',
       headers: {
         'Content-type': 'application/json'
       },
-      body: JSON.stringify(updTask)
+      body: JSON.stringify(updItem)
     })
 
     const data = await res.json()
@@ -120,7 +125,7 @@ const App = () => {
           <>
           {showAddTask && <AddItem onAdd={addItem}/>}
           { items.length > 0 ? (
-          <Items items={items} onDelete={deleteItem} onUpdate={toggleReminder} showAddTask={showAddTask} />
+          <Items items={items} onDelete={deleteItem} onUpdate={updateItem} showAddTask={showAddTask} />
           )
           : 'No Items to Show'
           }
@@ -139,8 +144,7 @@ const App = () => {
         }/>
         <Route path="/editItem" element={
         <>
-        {showAddTask && <AddItem onAdd={addItem}/>}
-        <AddItem /> 
+        {<EditItem onAdd={updateItem}/>}
         </>
         }/>
 

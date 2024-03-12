@@ -20,9 +20,8 @@ const Item = ({item, onDelete, onUpdate, onDetails, showAddTask}) => {
       <h3>
         {item.name}  
         <button onClick={()=>{navigate('/itemDetails', {replace:true, state:{item: item, showAddTask: showAddTask}})}}>Details</button> 
-      
-        <FaTimes style={{ color: 'red', cursor: 'pointer'}}
-        onClick={ ()=>onDelete(item.id)} />
+        <button onClick={()=>{navigate('/editItem', {replace:true, state:{item: item, showAddTask: showAddTask}})}}>Edit</button> 
+        <FaTimes style={{ color: 'red', cursor: 'pointer'}}  onClick={ ()=>onDelete(item.id)} />
       </h3>
       <p>{item.description}</p>
      </div> 

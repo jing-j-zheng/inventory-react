@@ -18,19 +18,15 @@ const Header = ({title, onAdd, showAdd, onCancel, onEdit}) => {
         )
       
       }
-      {
-      (location.pathname === '/itemDetails' ) && (
-        <>
-        <Button color={'green'}
-         text={'Edit'}
-         onClick={()=>{navigate('/editItem', {replace:true})}} />
 
-         <Button color={'black'}
-         text={'Cancl'}
+      {
+        ( location.pathname === '/itemDetails'  || location.pathname === '/editItem' ) && (
+        <>
+         <Button color={'blue'}
+         text={'Back'}
          onClick={()=>{navigate('/', {replace:true})}} />
          </>
       )
-    
       }
 
       
@@ -39,7 +35,7 @@ const Header = ({title, onAdd, showAdd, onCancel, onEdit}) => {
   )
 }
 Header.defaultProps = {
-    title: 'Task Tracker'
+    title: 'Inventory'
 }
 
 Header.propTypes = {
