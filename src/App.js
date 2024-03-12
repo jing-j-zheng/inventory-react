@@ -104,7 +104,12 @@ const App = () => {
     const data = await res.json()
 
     setItems(items.map((item)=>
-     item.id === id ? { ...item, name: data.name } : item
+     item.id === id ? { ...item,
+          name: data.name,
+          description: data.description,
+          quantity: data.quantity,
+          price: data.price
+          } : item
      )
     )
   }
