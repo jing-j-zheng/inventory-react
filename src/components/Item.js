@@ -1,15 +1,35 @@
 import { FaTimes } from 'react-icons/fa'
+import {Link, BrowserRouter as Router, Route, Routes, 
+        generatePath,
+        useNavigate,
+        useParams } from 'react-router-dom'
 
-const Task = ({task, onDelete, onToggle}) => {
+import { useState } from "react";
+
+const Item = ({item, onDelete, onToggle, onDetails}) => {
+
+  const [id, setId] = useState();
+
+  let navigate = useNavigate();
+
+
+
   return (
-    <div className={`task ${task.reminder ? 'reminder' : ''}`} onDoubleClick={ ()=>onToggle(task.id)}>
+    
+    <div className='task'  onDoubleClick={ ()=>onDetails(item.id)}  >
       <h3>
-        {task.name} <FaTimes style={{ color: 'red', cursor: 'pointer'}}
-        onClick={ ()=>onDelete(task.id)} />
+        {item.name}  
+        <button onClick={()=>{navigate('/itemDetails', {replace:true, state:{item: item}})}}>Details</button> 
+      
+        <FaTimes style={{ color: 'red', cursor: 'pointer'}}
+        onClick={ ()=>onDelete(item.id)} />
       </h3>
-      <p>{task.description}</p>
-    </div>
+      <p>{item.description}</p>
+     </div> 
+     
+  
   )
 }
 
-export default Task
+export default Item
+

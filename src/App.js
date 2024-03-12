@@ -1,21 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
-import Header from './components/Header'
-import Items from './components/Items'
+import Header from './components/Header';
+import Items from './components/Items';
 import AddItem from './components/AddItem'
 import Footer from './components/Footer'
-import About from './components/About'
+import ItemDetails from './components/ItemDetails'
+import Login from './components/Login';
 
 import {useState, useEffect } from 'react'
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
-import { FaLessThanEqual } from 'react-icons/fa';
+import {BrowserRouter as Router,
+        Route,
+        Routes,
+        generatePath,
+        useNavigate,
+        useParams,
+      } from 'react-router-dom'
+import { FaLessThanEqual } from 'react-icons/fa'
 
 const App = () => {
   const [showAddTask, setShowAddTask] = useState (false)
 
   const [items, setItems] = useState([])
 
-   useEffect(() => {
+
+  useEffect(() => {
   
       const getItems = async () => {
         const itemsFromServer = await fetchItems()
@@ -37,6 +45,7 @@ const App = () => {
 
     // Fetch item
     const fetchItem = async  (id) => {
+
       const res = await fetch(`http://localhost:4000/items/${id}`)
       const data = await res.json()
   
@@ -61,6 +70,7 @@ const App = () => {
 
   }
 
+  
   // Delete item
   const deleteItem = async (id) => {
 
@@ -75,7 +85,7 @@ const App = () => {
   const toggleReminder = async (id) => {
     const taskToToggle = await fetchItem(id)
     const updTask = {...taskToToggle, 
-    reminder: !taskToToggle.reminder }
+    name: taskToToggle.name }
 
     const res = await fetch(`http://localhost:4000/items/${id}`, {
       method:'PUT',
@@ -88,7 +98,7 @@ const App = () => {
     const data = await res.json()
 
     setItems(items.map((item)=>
-     item.id === id ? { ...item, reminder: data.reminder } : item
+     item.id === id ? { ...item, name: data.name } : item
      )
     )
   }
@@ -108,22 +118,21 @@ const App = () => {
           <>
           {showAddTask && <AddItem onAdd={addItem}/>}
           { items.length > 0 ? (
-          <Items items={items} onDelete={deleteItem} onToggle={toggleReminder} />
+          <Items items={items} onDelete={deleteItem} onUpdate={toggleReminder} />
           )
           : 'No Items to Show'
           }
           </>
         } />
    
-        <Route path='/about' element={ 
-        <>
-        {showAddTask && <AddItem onAdd={addItem}/>}
-        <About />
-        </>
-        }
-        
-         />
- 
+      <Route
+        path="items/:itemId"
+        element={<ItemDetails onDetails={fetchItem}/>}
+      />
+      <Route path="/itemDetails" element={<ItemDetails />} />
+      <Route path="/login" element={<Login />}   />
+
+
         </Routes>
         <Footer />
       </div>  
