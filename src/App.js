@@ -7,6 +7,7 @@ import Footer from './components/Footer'
 import ItemDetails from './components/ItemDetails'
 import Login from './components/Login';
 
+
 import {useState, useEffect } from 'react'
 import {BrowserRouter as Router,
         Route,
@@ -107,7 +108,8 @@ const App = () => {
       <Router>
       <div className='container'>
         <Header title="Inventory" onAdd={()=> setShowAddTask(!showAddTask)}
-        showAdd={showAddTask}
+        showAdd={showAddTask}   
+           
         />
 
        
@@ -118,7 +120,7 @@ const App = () => {
           <>
           {showAddTask && <AddItem onAdd={addItem}/>}
           { items.length > 0 ? (
-          <Items items={items} onDelete={deleteItem} onUpdate={toggleReminder} />
+          <Items items={items} onDelete={deleteItem} onUpdate={toggleReminder} showAddTask={showAddTask} />
           )
           : 'No Items to Show'
           }
@@ -129,7 +131,19 @@ const App = () => {
         path="items/:itemId"
         element={<ItemDetails onDetails={fetchItem}/>}
       />
-      <Route path="/itemDetails" element={<ItemDetails />} />
+      <Route path="/itemDetails" element={
+        <>
+         {showAddTask && <AddItem onAdd={addItem}/>}
+        <ItemDetails />
+        </>
+        }/>
+        <Route path="/editItem" element={
+        <>
+        {showAddTask && <AddItem onAdd={addItem}/>}
+        <AddItem /> 
+        </>
+        }/>
+
       <Route path="/login" element={<Login />}   />
 
 

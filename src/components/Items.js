@@ -1,6 +1,6 @@
 import Item from './Item'
 
-const Items = ({items, onDelete, onToggle}) => {
+const Items = ({items, onDelete, onUpdate, showAddTask}) => {
 
   return (
     <>
@@ -11,6 +11,10 @@ const Items = ({items, onDelete, onToggle}) => {
             key={item.id} 
             item={item}
             onDelete={onDelete}
+            onUpdate={onUpdate}
+            showAddTask={showAddTask}
+
+
             />
                 
         </div>

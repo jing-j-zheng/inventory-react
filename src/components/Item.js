@@ -6,7 +6,7 @@ import {Link, BrowserRouter as Router, Route, Routes,
 
 import { useState } from "react";
 
-const Item = ({item, onDelete, onToggle, onDetails}) => {
+const Item = ({item, onDelete, onUpdate, onDetails, showAddTask}) => {
 
   const [id, setId] = useState();
 
@@ -19,7 +19,7 @@ const Item = ({item, onDelete, onToggle, onDetails}) => {
     <div className='task'  onDoubleClick={ ()=>onDetails(item.id)}  >
       <h3>
         {item.name}  
-        <button onClick={()=>{navigate('/itemDetails', {replace:true, state:{item: item}})}}>Details</button> 
+        <button onClick={()=>{navigate('/itemDetails', {replace:true, state:{item: item, showAddTask: showAddTask}})}}>Details</button> 
       
         <FaTimes style={{ color: 'red', cursor: 'pointer'}}
         onClick={ ()=>onDelete(item.id)} />
