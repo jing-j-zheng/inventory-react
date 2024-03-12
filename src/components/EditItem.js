@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useLocation } from 'react-router-dom';
 
 
-const EditItem = ({onAdd}) => {
+const EditItem = ({onUpdate}) => {
     const location = useLocation();
     console.log('in EditItem')
     console.log(location)
@@ -23,7 +23,7 @@ const EditItem = ({onAdd}) => {
         }
         console.log('id: ' + location.state.item.id)
 
-        onAdd({id, name, description, quantity, price} )
+        onUpdate(id, name, description, quantity, price )
 
 
     }

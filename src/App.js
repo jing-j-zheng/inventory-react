@@ -84,13 +84,13 @@ const App = () => {
   }
 
   // Update item
-  const updateItem = async (id, name, description, quantity, price) => {
+  const updateItem = async (id, newName, newDescription, newQuantity, newPrice) => {
     const itemToUpdate = await fetchItem(id)
     const updItem = {...itemToUpdate, 
-    name: itemToUpdate.name,
-    description: itemToUpdate.description,
-    quantity: itemToUpdate.quantity,
-    price: itemToUpdate.price
+    name: newName,
+    description: newDescription,
+    quantity: newQuantity,
+    price: newPrice
     }
 
     const res = await fetch(`http://localhost:4000/items/${id}`, {
@@ -116,8 +116,7 @@ const App = () => {
         showAdd={showAddTask}   
            
         />
-
-       
+   
         <Routes>
         <Route path='/'
          exact 
@@ -132,19 +131,15 @@ const App = () => {
           </>
         } />
    
-      <Route
-        path="items/:itemId"
-        element={<ItemDetails onDetails={fetchItem}/>}
-      />
+  
       <Route path="/itemDetails" element={
         <>
-         {showAddTask && <AddItem onAdd={addItem}/>}
         <ItemDetails />
         </>
         }/>
         <Route path="/editItem" element={
         <>
-        {<EditItem onAdd={updateItem}/>}
+        {<EditItem onUpdate={updateItem}/>}
         </>
         }/>
 
