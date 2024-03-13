@@ -25,6 +25,11 @@ function ItemDetails({onDetails, item}) {
         <label>Price:</label>
          {location.state.item.price}
         </div>
+        <div>
+        <label>Update Time:</label>
+         {location.state.item.updateDatetime}
+        </div>
+ 
       </div>
     ) : (
         <div>

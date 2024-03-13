@@ -19,9 +19,11 @@ const Item = ({item, onDelete, onUpdate, onDetails, showAddTask}) => {
     <div className='task'  onDoubleClick={ ()=>onDetails(item.id)}  >
       <h3>
         {item.name}  
+        <div>
         <button onClick={()=>{navigate('/itemDetails', {replace:true, state:{item: item, showAddTask: showAddTask}})}}>Details</button> 
         <button onClick={()=>{navigate('/editItem', {replace:true, state:{item: item, showAddTask: showAddTask}})}}>Edit</button> 
-        <FaTimes style={{ color: 'red', cursor: 'pointer'}}  onClick={ ()=>onDelete(item.id)} />
+        <FaTimes style={{ color: 'red', cursor: 'pointer'}}  onClick={ ()=>onDelete(item.id)} />'
+        </div>
       </h3>
       <p>{item.description}</p>
      </div> 
